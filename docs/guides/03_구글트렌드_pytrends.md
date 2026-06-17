@@ -59,7 +59,7 @@ def safe_interest(keywords, **kw):
 ```
 
 ## 5. 해외 선행지표 활용 (콜드스타트 전략)
-`geo`를 바꿔 일본·미국 등 해외 관심도를 함께 수집 → 국내보다 먼저 뜬 아이템을 조기 포착(`docs/02` §2).
+`geo`를 바꿔 일본·미국 등 해외 관심도를 함께 수집 → 국내보다 먼저 뜬 아이템을 조기 포착(`docs/03` §2).
 ```python
 interest(["dubai chocolate"], geo="JP")   # 일본
 interest(["dubai chocolate"], geo="US")   # 미국

@@ -131,7 +131,7 @@ def brief(item: str, metrics: dict, sources: list[str]) -> str:
     )
     return next(b.text for b in resp.content if b.type == "text")
 ```
-> 핵심: **숫자는 코드가 계산해 prompt에 주입**하고, LLM은 설명/추천 문장만 쓴다 → 환각·계산오류 방지(`docs/02` §4, `docs/01` §5.4).
+> 핵심: **숫자는 코드가 계산해 prompt에 주입**하고, LLM은 설명/추천 문장만 쓴다 → 환각·계산오류 방지(`docs/03` §4, `docs/01` §5.4).
 
 ## 8. 비용 가드 (실무)
 - 대량 작업은 **반드시 Haiku + Batch**. Opus를 대량에 쓰지 말 것.
@@ -140,7 +140,7 @@ def brief(item: str, metrics: dict, sources: list[str]) -> str:
 - 추정·재계산: `docs/04_비용가이드.md` §3 워크시트.
 
 ## 9. (대안) OpenAI/Gemini로 교체 시
-같은 작업을 OpenAI(GPT-5.4 Mini 등)·Gemini(Flash-Lite 등)로도 구현 가능(단가 `docs/03` §2). SDK만 다르고 구조(분류=구조화출력, 대량=배치, 인사이트=고급모델)는 동일. 선택은 **한국어/도메인 품질 PoC**로 결정.
+같은 작업을 OpenAI(GPT-5.4 Mini 등)·Gemini(Flash-Lite 등)로도 구현 가능(단가 `docs/04` §2). SDK만 다르고 구조(분류=구조화출력, 대량=배치, 인사이트=고급모델)는 동일. 선택은 **한국어/도메인 품질 PoC**로 결정.
 
 ## 10. 트러블슈팅
 - **401**: `ANTHROPIC_API_KEY` 미설정/오타.
