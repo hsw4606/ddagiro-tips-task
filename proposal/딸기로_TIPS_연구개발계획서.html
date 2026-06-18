@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>딸기로컴퍼니 TIPS 연구개발계획서</title>
+<style>
+  @page { size: 13.333in 10in; margin: 0; }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  :root{
+    --blue:#1f6fbf; --blue-d:#15538f; --blue-l:#eaf2fb;
+    --orange:#e8552d; --dark:#2b2b2b; --gray:#6b7280; --line:#d7dde5;
+    --ddalgi:#e8475f;
+  }
+  body{ font-family:'Apple SD Gothic Neo','AppleGothic',sans-serif; color:#1c2430; }
+  .slide{
+    position:relative; width:13.333in; height:10in; padding:0.55in 0.6in 0.6in;
+    page-break-after:always; overflow:hidden; background:#fff;
+  }
+  /* header */
+  .head{ display:flex; align-items:flex-end; justify-content:space-between;
+    border-bottom:3px solid var(--dark); padding-bottom:8px; }
+  .head .h-l{ font-size:21px; font-weight:800; color:#16202c; }
+  .head .h-r{ font-size:19px; font-weight:400; color:#7a818c; letter-spacing:1px; }
+  /* tagline */
+  .tag{ background:var(--blue-l); border-radius:6px; padding:13px 18px; margin-top:14px; }
+  .tag .t1{ font-size:15px; color:var(--blue); font-weight:800; }
+  .tag .t2{ font-size:19px; font-weight:800; margin-top:4px; color:#16202c; }
+  .tag ul{ margin:9px 0 0 18px; }
+  .tag li{ font-size:12.5px; line-height:1.7; color:#33414f; }
+  .tag b{ color:#13294a; }
+  /* section markers */
+  .secbar{ display:flex; align-items:center; gap:9px; margin:16px 0 8px; }
+  .secbar .dot{ width:13px; height:13px; border-radius:3px; background:var(--orange); transform:rotate(0deg);}
+  .secbar h3{ font-size:16px; font-weight:800; color:#16202c; }
+  /* footer */
+  .foot{ position:absolute; left:0.6in; right:0.6in; bottom:0.28in;
+    display:flex; justify-content:space-between; align-items:center;
+    border-top:1px solid var(--line); padding-top:6px; color:#9aa3ad; font-size:11px; }
+  .foot .tips{ font-weight:700; letter-spacing:1px; }
+  .pg{ font-size:12px; color:#8b95a0; }
+  /* generic */
+  h4.block{ font-size:15px; font-weight:800; margin:14px 0 7px; color:#16202c; }
+  p,li{ font-size:13px; line-height:1.65; }
+  ul.body{ margin-left:18px; } ul.body li{ margin-bottom:3px; }
+  .muted{ color:var(--gray); } .small{ font-size:11px; } .tiny{ font-size:10px; }
+  .note{ font-size:10.5px; color:#9aa3ad; font-style:italic; margin-top:6px; }
+  b.bl{ color:var(--blue); } b.or{ color:var(--orange); }
+  /* tables */
+  table{ width:100%; border-collapse:collapse; margin-top:10px; font-size:11.5px; }
+  th{ background:var(--blue); color:#fff; font-weight:700; padding:7px 8px; text-align:center; border:1px solid #fff; font-size:11.5px; }
+  td{ border:1px solid var(--line); padding:6px 8px; vertical-align:middle; line-height:1.5; }
+  tr:nth-child(even) td{ background:#f7f9fc; }
+  th.dark{ background:var(--dark); } th.or{ background:var(--orange); }
+  .center{ text-align:center; } .right{ text-align:right; }
+  /* card grids */
+  .grid{ display:grid; gap:12px; margin-top:12px; }
+  .g2{ grid-template-columns:1fr 1fr; } .g3{ grid-template-columns:1fr 1fr 1fr; }
+  .g4{ grid-template-columns:1fr 1fr 1fr 1fr; } .g5{ grid-template-columns:repeat(5,1fr); }
+  .g6{ grid-template-columns:repeat(6,1fr); }
+  .card{ border:1px solid var(--line); border-radius:8px; padding:12px 13px; }
+  .card .ch{ font-size:13px; font-weight:800; color:var(--blue); margin-bottom:6px; }
+  .card ul{ margin-left:15px; } .card li{ font-size:11px; line-height:1.55; margin-bottom:2px; }
+  .pill{ display:inline-block; background:var(--blue); color:#fff; border-radius:14px;
+    padding:2px 11px; font-size:11px; font-weight:700; }
+  .pill.or{ background:var(--orange); } .pill.dk{ background:var(--dark); }
+  .kpi{ text-align:center; border:1px solid var(--line); border-radius:8px; padding:12px 6px; }
+  .kpi .num{ font-size:26px; font-weight:800; color:var(--blue); }
+  .kpi .lab{ font-size:11px; color:#55606c; margin-top:3px; }
+  .hbar{ background:var(--dark); color:#fff; font-weight:800; font-size:13px;
+    padding:8px 12px; border-radius:5px; text-align:center; }
+  .hbar.bl{ background:var(--blue);} .hbar.or{ background:var(--orange);}
+  .flow{ display:flex; align-items:stretch; gap:0; margin-top:12px; }
+  .flow .step{ flex:1; border:1px solid var(--line); border-radius:8px; padding:10px; text-align:center; }
+  .flow .step .n{ display:inline-block; background:var(--blue); color:#fff; border-radius:50%;
+    width:20px; height:20px; line-height:20px; font-size:11px; font-weight:700; margin-bottom:5px; }
+  .flow .arr{ display:flex; align-items:center; padding:0 6px; color:var(--orange); font-size:20px; font-weight:800; }
+  .chip{ display:inline-block; border:1px solid var(--line); border-radius:5px; padding:5px 9px;
+    font-size:11px; margin:3px 4px 0 0; background:#fafbfd; }
+  .arrowdown{ text-align:center; color:var(--blue); font-size:22px; margin:6px 0; }
+  .bigstmt{ text-align:center; font-size:24px; font-weight:800; color:var(--blue); margin-top:6px;}
+  /* cover */
+  .cover{ display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; text-align:center; }
+  .cover .badge{ font-size:13px; color:#7a818c; border:1px solid var(--line); padding:5px 12px; border-radius:4px; }
+  .cover h1{ font-size:34px; font-weight:800; line-height:1.35; margin:26px 0 14px; color:#15202e; }
+  .cover .ko{ font-size:19px; color:#33414f; line-height:1.6; }
+  .cover .en{ font-size:14px; color:#8b95a0; margin-top:14px; line-height:1.6; }
+  .cover .logo{ margin-top:40px; font-size:30px; font-weight:800; color:var(--ddalgi); letter-spacing:1px; }
+  .cover .sub{ font-size:13px; color:#7a818c; margin-top:6px; }
+  .toc-col h2{ font-size:18px; font-weight:800; color:#15202e; margin:0 0 10px; }
+  .toc-col li{ font-size:14px; line-height:1.9; color:#33414f; list-style:none; }
+  .toc-col li.sub{ margin-left:16px; font-size:12.5px; color:#5b6672; }
+  .disc{ background:#fff7f3; border:1px solid #f0c9b8; border-radius:6px; padding:9px 13px; font-size:11px; color:#a15a3b; margin-top:12px; }
+</style>
+</head>
+<body>
+
+<!-- 1. COVER -->
+<div class="slide">
+  <div class="cover">
+    <div class="badge">[별지 제1-③-1호] 팁스(TIPS) 창업기업 연구개발계획서 본문 — 팁스R&D (일반트랙)</div>
+    <h1>인터넷 트렌드·자사 실거래 데이터 융합 기반<br>디저트 트렌드 조기예측 및 자연어 통합 추천·랭킹 AI 기술 개발</h1>
+    <div class="ko">"곧 뜰 디저트"를 입점사에 먼저 알리고,<br>자연어 한 줄로 전국 디저트를 통합 추천하는 AI 플랫폼</div>
+    <div class="en">Development of AI Technology for Early Dessert-Trend Forecasting<br>and Natural-Language Unified Recommendation &amp; Ranking,<br>Based on Fusion of Web-Trend and First-Party Transaction Data</div>
+    <div class="logo">🍓 딸기로컴퍼니 (Ddalgiro)</div>
+    <div class="sub">운영사: 〈TIPS 운영사〉 &nbsp;/&nbsp; 공동연구: 픽미(PickMe) &nbsp;/&nbsp; 서비스: 딸기로 · 딸기로픽</div>
+  </div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">1</span></div>
+</div>
+
+<!-- 2. 목차 -->
+<div class="slide">
+  <div class="head"><div class="h-l">목 차</div><div class="h-r">CONTENTS</div></div>
+  <div class="grid g2" style="margin-top:26px; gap:40px;">
+    <div class="toc-col">
+      <h2>I. 시장현황 및 문제점 (Market &amp; Problem)</h2>
+      <ul>
+        <li class="sub">1-1. 시장현황</li>
+        <li class="sub">1-2. 기업현황</li>
+        <li class="sub">1-3. 문제점</li>
+        <li class="sub">1-4. 차별성 및 독창성</li>
+      </ul>
+      <h2 style="margin-top:18px;">II. 해결방안 및 세부내용 (Solution)</h2>
+      <ul>
+        <li class="sub">2-1. 연구개발 요약</li>
+        <li class="sub">2-2. 연구개발 내용 및 목표 (성능지표·평가방법)</li>
+        <li class="sub">2-3. 연구개발 현황</li>
+        <li class="sub">2-4. 표준화 전략</li>
+        <li class="sub">2-5. 업무분장 및 추진일정</li>
+      </ul>
+    </div>
+    <div class="toc-col">
+      <h2>III. 사업화 전략 (Scale-up)</h2>
+      <ul>
+        <li class="sub">3-1. 목표시장 및 경쟁사 현황</li>
+        <li class="sub">3-2. 사업화 계획</li>
+        <li class="sub">3-3. 글로벌 진출전략</li>
+        <li class="sub">3-4. 운영사 지원계획</li>
+        <li class="sub">3-5. 고용창출 및 기대효과</li>
+        <li class="sub">3-6. 사업화 목표</li>
+        <li class="sub">3-7. 사업화 목표 산정 근거</li>
+      </ul>
+      <h2 style="margin-top:18px;">IV. 창업기업 소개</h2>
+      <h2 style="margin-top:10px;">V. 연구개발 안전 및 보안조치 이행계획</h2>
+    </div>
+  </div>
+  <div class="disc">※ 본 문서는 메디코치(트레비앙) TIPS 일반트랙 계획서 양식을 기반으로 딸기로 프로젝트에 맞춰 작성한 <b>초안</b>입니다. 〈 〉 표기·"확인 필요" 항목은 실제 수치/팀 정보로 교체해야 하며, 시장 통계·KPI 일부는 가정치로 공식 출처·실측으로 검증이 필요합니다.</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">2</span></div>
+</div>
+
+<!-- 3. I 1-1 시장현황 (1) -->
+<div class="slide">
+  <div class="head"><div class="h-l">I. 시장현황 및 문제점 (Market &amp; Problem)</div><div class="h-r">1-1. 시장현황</div></div>
+  <div class="tag">
+    <div class="t1">[ 시장 현황 ]</div>
+    <div class="t2">디저트·베이커리 시장 고성장 + 트렌드 초고속 회전, 그러나 <b>'트렌드 정보'는 대기업에 편중</b></div>
+    <ul>
+      <li>국내 디저트·베이커리/디저트 카페 시장 지속 성장, <b>K-디저트의 글로벌 확산</b>(약과·두바이초콜릿·요거트아이스크림 등)</li>
+      <li>SNS·숏폼 중심으로 <b>아이템 수명주기가 수개월 단위</b>로 짧아지고 변동성 급증 → "타이밍"이 매출을 좌우</li>
+      <li>트렌드 데이터·분석 역량은 대형 프랜차이즈에 편중, <b>개인·소상공인 디저트 업체는 정보 비대칭에 노출</b></li>
+    </ul>
+  </div>
+  <div class="grid g3">
+    <div class="card"><div class="ch">시장 성장</div><ul>
+      <li>국내 베이커리/디저트 시장 〈약 ○조 원〉 규모, 연 〈○%〉 성장</li>
+      <li>디저트 카페·전문점 창업 지속 증가</li>
+      <li class="muted">*규모·성장률 공식 통계 확인 필요</li></ul></div>
+    <div class="card"><div class="ch">트렌드 회전 가속</div><ul>
+      <li>SNS·숏폼 바이럴로 신상 아이템 폭발 → 단기 급등·급락</li>
+      <li>해외(일본 등) 6~12개월 선행 → 국내 유입 패턴 존재</li>
+      <li>실패 시 재고·설비 매몰비용 부담</li></ul></div>
+    <div class="card" style="background:var(--blue-l); border-color:#bcd4ee;"><div class="ch" style="color:var(--blue-d);">기회</div><ul>
+      <li><b>"곧 뜰 아이템"을 먼저 아는 자</b>가 시장을 선점</li>
+      <li>정보 비대칭 해소 = 소상공인 대상 명확한 가치</li>
+      <li>발견·추천 관문 선점 → 데이터·거래 선순환</li></ul></div>
+  </div>
+  <h4 class="block">디저트 아이템 트렌드 라이프사이클 (개념)</h4>
+  <div class="flow">
+    <div class="step"><span class="n">1</span><br>해외/틈새 발현</div><div class="arr">›</div>
+    <div class="step"><span class="n">2</span><br>SNS 초기 신호</div><div class="arr">›</div>
+    <div class="step" style="border-color:var(--orange);"><span class="n" style="background:var(--orange)">3</span><br><b>성장기 진입(골든타임)</b></div><div class="arr">›</div>
+    <div class="step"><span class="n">4</span><br>대중화·정점</div><div class="arr">›</div>
+    <div class="step"><span class="n">5</span><br>쇠퇴</div>
+  </div>
+  <div class="note">핵심 R&D 가치 = ③ 성장기 진입을 <b>정점 이전에 조기 포착</b>해 입점사에 리드타임을 제공하는 것.</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">3</span></div>
+</div>
+
+<!-- 4. I 1-1 시장현황 (2) 입점사 니즈 -->
+<div class="slide">
+  <div class="head"><div class="h-l">I. 시장현황 및 문제점 (Market &amp; Problem)</div><div class="h-r">1-1. 시장현황</div></div>
+  <div class="tag">
+    <div class="t1">[ 입점사(공급자) 니즈 ]</div>
+    <div class="t2">소상공인 디저트 업체에게 <b>"무엇을 언제 만들까"</b>는 생존이 걸린 의사결정</div>
+    <ul>
+      <li>신메뉴 기획은 대부분 <b>감(感)·뒷북 모방</b>에 의존 → 이미 정점을 지난 아이템에 진입하는 사례 빈번</li>
+      <li>전문 트렌드 리서치·데이터 분석 인력을 둘 여력이 없음 → 정보 격차가 곧 매출 격차</li>
+      <li>딸기로 같은 <b>중개·배송 플랫폼</b>이 트렌드를 먼저 알려주면, 입점사 성공 → 거래액 → 플랫폼 매출의 선순환</li>
+    </ul>
+  </div>
+  <div class="grid g4" style="margin-top:14px;">
+    <div class="kpi"><div class="num">개월</div><div class="lab">아이템 수명주기<br>(단기·고변동)</div></div>
+    <div class="kpi"><div class="num">감(感)</div><div class="lab">현재 신메뉴<br>기획 방식</div></div>
+    <div class="kpi"><div class="num">정보비대칭</div><div class="lab">소상공인 vs<br>대형 프랜차이즈</div></div>
+    <div class="kpi"><div class="num">뒷북</div><div class="lab">트렌드 정점 후<br>진입 → 매몰비용</div></div>
+  </div>
+  <h4 class="block">딸기로 플랫폼 가치사슬 내 위치</h4>
+  <div class="flow">
+    <div class="step">트렌드 신호 수집<br><span class="small muted">인터넷+자사 데이터</span></div><div class="arr">›</div>
+    <div class="step" style="border-color:var(--orange)"><b>곧 뜰 아이템 조기 추천</b><br><span class="small muted">입점사 대상</span></div><div class="arr">›</div>
+    <div class="step">입점사 신메뉴 출시<br><span class="small muted">리드타임 확보</span></div><div class="arr">›</div>
+    <div class="step">거래액↑ → 플랫폼 매출↑<br><span class="small muted">데이터 축적</span></div>
+  </div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">4</span></div>
+</div>
+
+<!-- 5. I 1-1 시장현황 (3) 소비자 니즈 -->
+<div class="slide">
+  <div class="head"><div class="h-l">I. 시장현황 및 문제점 (Market &amp; Problem)</div><div class="h-r">1-1. 시장현황</div></div>
+  <div class="tag">
+    <div class="t1">[ 소비자(수요자) 니즈 ]</div>
+    <div class="t2">소비자는 <b>"내 조건에 맞는 디저트"</b>를 자연어로 찾고 싶지만, 현재는 검색이 파편화</div>
+    <ul>
+      <li>"성수동 비건 케이크", "답례용 개별포장 약과 50개" 같은 <b>복합 조건 질의</b>를 한 번에 처리하는 서비스 부재</li>
+      <li>포털·지도·SNS·배달앱에 정보가 흩어져 있고, <b>폐업/품절/낡은 정보</b>가 섞여 신뢰도 저하</li>
+      <li>B2C(개인) 뿐 아니라 <b>B2B(기업 답례·행사)</b> 대량 수요도 마땅한 통합 검색 채널이 없음</li>
+    </ul>
+  </div>
+  <div class="grid g2">
+    <div class="card"><div class="ch">현재 소비자 디저트 탐색의 한계</div><ul>
+      <li>키워드 검색 → 광고·중복·낡은 정보 혼재</li>
+      <li>지역·식이제약·용도·예산 등 복합조건 미지원</li>
+      <li>입점/비입점 경계로 전국 커버리지 분절</li>
+      <li>폐업·품절 업체 오추천으로 신뢰 저하</li></ul></div>
+    <div class="card" style="background:var(--blue-l); border-color:#bcd4ee;"><div class="ch" style="color:var(--blue-d)">자연어 통합 추천의 필요성</div><ul>
+      <li>한 줄 질의 → 전국 디저트 업체 통합 랭킹</li>
+      <li>적합도 1차 + 품질·지역·트렌드 가산</li>
+      <li>신선도 검증(폐업/품절 배제)으로 신뢰 확보</li>
+      <li>비입점 추천 → 신뢰 우선 → 입점 전환 깔때기</li></ul></div>
+  </div>
+  <div class="note">→ 안건 1(공급자 대상 트렌드 추천)과 안건 2(수요자 대상 자연어 추천)는 <b>같은 데이터 파운데이션</b>을 공유하며 양면(공급·수요) 데이터 해자를 형성.</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">5</span></div>
+</div>
+
+<!-- 6. I 1-2 기업현황 -->
+<div class="slide">
+  <div class="head"><div class="h-l">I. 시장현황 및 문제점 (Market &amp; Problem)</div><div class="h-r">1-2. 기업현황</div></div>
+  <div class="tag">
+    <div class="t1">[ 전체 서비스 소개 ]</div>
+    <div class="t2">딸기로 = 프리미엄 디저트 배송·중개 플랫폼, 이미 <b>실거래 데이터 + 공동연구 분석 자산</b> 보유</div>
+    <ul>
+      <li>입점 디저트 업체와 소비자(B2C·B2B)를 잇는 <b>디저트 배송·중개 플랫폼</b> 운영 (ddalgiro.com)</li>
+      <li>딸기로픽(동일 법인)의 <b>자사 실거래 데이터</b>: 매출·구매 퍼널·팝업별 브랜드 성과·고객 클러스터·키워드 취향·재구매율</li>
+      <li><b>픽미팀과 정식 공동연구</b>: 디저트 트렌드 분석·가게 랭킹 대시보드 + 시계열 분석·자체 등급 계산식(코드) 구축 → 데이터 해자</li>
+    </ul>
+  </div>
+  <div class="secbar"><span class="dot"></span><h3>핵심 지표 / 보유 자산</h3></div>
+  <div class="grid g4">
+    <div class="card"><div class="ch">데이터 자산</div><ul><li>자사 실거래(매출·전환·재구매)</li><li>고객 클러스터·키워드 취향</li><li>팝업 회차별 브랜드 성과</li></ul></div>
+    <div class="card"><div class="ch">선행 R&D 자산</div><ul><li>픽미 공동연구(트렌드·가게랭킹)</li><li>시계열 분석·자체 등급 산식(코드)</li><li>= 안건 1·2 작동 PoC</li></ul></div>
+    <div class="card"><div class="ch">파트너십</div><ul><li>TIPS 운영사 〈확보〉</li><li>입점 디저트 업체 네트워크</li><li>공동연구 파트너(픽미)</li></ul></div>
+    <div class="card"><div class="ch">사업 기반</div><ul><li>배송·중개·결제 운영 경험</li><li>B2C + B2B 수요 채널</li><li>본사: 서울 동작구</li></ul></div>
+  </div>
+  <div class="note">→ 기존 "보유 데이터 없음" 전제는 <b>폐기</b>. 자사 실거래 데이터 + 픽미 공동연구 자산을 인터넷 공개 데이터와 결합해 부트스트랩한다.</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">6</span></div>
+</div>
+
+<!-- 7. I 1-3 문제점 -->
+<div class="slide">
+  <div class="head"><div class="h-l">I. 시장현황 및 문제점 (Market &amp; Problem)</div><div class="h-r">1-3. 문제점</div></div>
+  <div class="tag">
+    <div class="t1">[ 자사·시장 내부 문제점 ]</div>
+    <div class="t2">수기·사후적 트렌드 큐레이션은 <b>속도·확장성 한계</b>, 자동화 시 입점사 성공률·거래액 확대 기회</div>
+    <ul>
+      <li>현재 트렌드 파악은 사람이 수동으로 SNS·뉴스를 모니터링 → <b>커버리지·속도 제한, 정점 이후 뒤늦은 포착</b></li>
+      <li>비입점 업체 정보는 분절·낡음 → 자연어 통합 추천의 <b>신선도·정확도 확보가 난제</b></li>
+      <li>"곧 뜰 아이템 조기 추천 + 자연어 통합 추천"을 <b>AI로 자동화</b>하면 입점사 성공률·전환·거래액 동시 극대화</li>
+    </ul>
+  </div>
+  <div class="secbar"><span class="dot"></span><h3>현재 한계 → AI 자동화 기회</h3></div>
+  <div class="grid g3">
+    <div class="card"><div class="ch" style="color:var(--orange)">한계 ① 수기 모니터링</div><ul><li>사람이 채널별 수동 추적</li><li>감지 키워드·소스 수 제한</li><li>성장기 진입을 놓침(뒷북)</li></ul></div>
+    <div class="card"><div class="ch" style="color:var(--orange)">한계 ② 정보 신선도</div><ul><li>전국 비입점 카탈로그 부재</li><li>폐업/품절 정보 미반영</li><li>오추천 → 신뢰 저하</li></ul></div>
+    <div class="card"><div class="ch" style="color:var(--orange)">한계 ③ 검증 부재</div><ul><li>"왜 뜰까" 근거 미제시</li><li>예측 정확도 측정 체계 없음</li><li>R&D로서의 객관 입증 필요</li></ul></div>
+  </div>
+  <div class="arrowdown">▼</div>
+  <div class="bigstmt">AI 자동화 = 조기예측 + 통합추천 + 검증으로 핵심 성장동력 확보</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">7</span></div>
+</div>
+
+<!-- 8. I 1-4 차별성 및 독창성 -->
+<div class="slide">
+  <div class="head"><div class="h-l">I. 시장현황 및 문제점 (Market &amp; Problem)</div><div class="h-r">1-4. 차별성 및 독창성</div></div>
+  <div class="tag">
+    <div class="t1">[ 솔루션 ]</div>
+    <div class="t2">인터넷·자사 데이터 융합 AI로 <b>"곧 뜰 디저트 조기예측"</b>과 <b>"자연어 전국 통합 추천"</b>을 자동화</div>
+    <ul>
+      <li><b>안건 1 트렌드 예측 엔진</b>: 공개데이터+자사 판매데이터 융합 → 성장기 진입 조기 포착 → 입점사 맞춤 추천</li>
+      <li><b>안건 2 자연어 추천·랭킹 엔진</b>: 자연어 질의 → 전국(입점+비입점) 디저트 업체 통합 랭킹(적합도 1차 + 가산)</li>
+      <li>픽미 공동연구 <b>시계열 기법·자체 등급 산식</b>을 베이스라인으로, 본 과제에서 AI 예측·랭킹으로 고도화</li>
+    </ul>
+  </div>
+  <div class="grid g3">
+    <div class="card"><div class="pill">핵심역량 ①</div><div class="ch" style="margin-top:7px;">데이터 해자</div><ul>
+      <li>자사 실거래(판매·전환·재구매)</li><li>픽미 공동연구 분석 자산</li><li>인터넷 공개 데이터 결합</li></ul></div>
+    <div class="card"><div class="pill">핵심역량 ②</div><div class="ch" style="margin-top:7px;">자체 알고리즘</div><ul>
+      <li>트렌드 시계열 조기탐지</li><li>가게 자체 등급 계산식</li><li>하이브리드 검색+LTR 랭킹</li></ul></div>
+    <div class="card"><div class="pill">핵심역량 ③</div><div class="ch" style="margin-top:7px;">플랫폼·확장</div><ul>
+      <li>배송·중개·결제 운영 경험</li><li>비입점→입점 전환 깔때기</li><li>엔진 SaaS/데이터 수출</li></ul></div>
+  </div>
+  <div class="grid g2" style="margin-top:12px;">
+    <div class="card" style="background:#fff3ef; border-color:#f3c7b6;"><div class="ch" style="color:var(--orange)">안건 1 · 트렌드 예측 엔진</div>
+      <ul><li>인터넷+자사 신호 융합 스코어링</li><li>성장기 진입 조기 탐지·리드타임 제공</li><li>입점사 대상 "곧 뜰 아이템" 추천</li></ul></div>
+    <div class="card" style="background:var(--blue-l); border-color:#bcd4ee;"><div class="ch" style="color:var(--blue-d)">안건 2 · 자연어 추천·랭킹 엔진</div>
+      <ul><li>자연어 슬롯추출 + 하이브리드 검색</li><li>적합도 1차 + 품질·지역·트렌드 가산 LTR</li><li>전국 통합 + 신선도(폐업/품절) 검증</li></ul></div>
+  </div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">8</span></div>
+</div>
+
+<!-- 9. II 2-1 연구개발 요약 -->
+<div class="slide">
+  <div class="head"><div class="h-l">II. 해결방안 및 세부내용 (Solution)</div><div class="h-r">2-1. 연구개발 요약</div></div>
+  <div class="tag">
+    <div class="t1">[ 기술개발 요약 ]</div>
+    <div class="t2">인터넷·자사 데이터 융합 <b>데이터 파운데이션</b> + 트렌드 예측 / 자연어 추천·랭킹 <b>지능형 엔진</b> 구축</div>
+  </div>
+  <div class="secbar"><span class="dot"></span><h3>개발 기술 레이아웃</h3></div>
+  <div class="grid g2" style="gap:10px;">
+    <div><div class="hbar or">데이터 파운데이션</div>
+      <div class="grid g3" style="margin-top:8px; gap:8px;">
+        <div class="card center"><b>a</b><br><span class="small">수집·정제·지표화</span><div class="tiny muted">인터넷+자사 융합 ETL</div></div>
+        <div class="card center"><b>b</b><br><span class="small">카탈로그·벡터화</span><div class="tiny muted">전국 업체 통합 DB</div></div>
+        <div class="card center"><b>c</b><br><span class="small">신선도·엔티티 관리</span><div class="tiny muted">폐업·중복·품절</div></div>
+      </div></div>
+    <div><div class="hbar bl">지능형 추천 엔진</div>
+      <div class="grid g3" style="margin-top:8px; gap:8px;">
+        <div class="card center"><b>d</b><br><span class="small">트렌드 조기예측</span><div class="tiny muted">안건 1 핵심</div></div>
+        <div class="card center"><b>e</b><br><span class="small">자연어+랭킹(LTR)</span><div class="tiny muted">안건 2 핵심</div></div>
+        <div class="card center"><b>f</b><br><span class="small">근거생성 LLM(RAG)</span><div class="tiny muted">환각 억제</div></div>
+      </div></div>
+  </div>
+  <div class="secbar"><span class="dot"></span><h3>개발 기술 개요</h3></div>
+  <table>
+    <tr><th>문제점</th><th>솔루션</th><th style="width:90px;">개발기술</th><th>개발 목적</th></tr>
+    <tr><td>트렌드/업체 데이터가 흩어져 학습·운영 효율 저하</td><td>데이터 파운데이션 구축</td><td class="center"><b class="bl">a,b,c</b></td><td>통합 데이터셋·카탈로그 확보, AI 학습 기반 마련</td></tr>
+    <tr><td>수기·사후 트렌드 파악으로 조기 포착 실패</td><td>트렌드 조기예측 모델</td><td class="center"><b class="bl">d</b></td><td>성장기 진입 조기 탐지·리드타임 제공(정밀도↑)</td></tr>
+    <tr><td>파편화된 검색으로 자연어 통합 추천 불가</td><td>자연어 이해+랭킹(LTR)</td><td class="center"><b class="bl">e</b></td><td>적합도+가산 통합 랭킹, 신뢰 가능한 추천</td></tr>
+    <tr><td>추천 근거 부재·환각 위험</td><td>근거생성 LLM(RAG)</td><td class="center"><b class="bl">f</b></td><td>근거 인용·환각 억제로 신뢰도 확보</td></tr>
+  </table>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">9</span></div>
+</div>
+
+<!-- 10. II 2-2 안건1 트렌드 예측 엔진 -->
+<div class="slide">
+  <div class="head"><div class="h-l">II. 해결방안 및 세부내용 (Solution)</div><div class="h-r">2-2. 연구개발 내용 및 목표</div></div>
+  <div class="hbar bl" style="margin-top:14px;">지능형 엔진 ① · 트렌드 조기예측 모델 (안건 1)</div>
+  <div class="tag" style="margin-top:10px;">
+    <div class="t2" style="font-size:17px;">인터넷·자사 신호를 융합해 디저트 아이템의 <b>"성장기 진입"을 정점 이전에 조기 탐지</b></div>
+  </div>
+  <div class="flow">
+    <div class="step"><span class="n">1</span><br><b>신호 수집</b><br><span class="small muted">네이버 데이터랩·검색·구글 트렌드·유튜브·SNS + 자사 판매</span></div><div class="arr">›</div>
+    <div class="step"><span class="n">2</span><br><b>지표화·정제</b><br><span class="small muted">언급량·증가율·감성·소스 다양성·신조어 탐지</span></div><div class="arr">›</div>
+    <div class="step"><span class="n">3</span><br><b>융합 스코어링</b><br><span class="small muted">시계열 조기탐지 + 자사 판매 신호 가중</span></div><div class="arr">›</div>
+    <div class="step"><span class="n">4</span><br><b>조기 추천</b><br><span class="small muted">입점사 대상 "곧 뜰 아이템" + 리드타임·근거</span></div>
+  </div>
+  <div class="grid g2" style="margin-top:14px;">
+    <div class="card"><div class="ch">R&D 난제 (왜 연구개발인가)</div><ul>
+      <li><b>콜드스타트 시계열 조기탐지</b>: 정점 전 성장기 변곡점 검출</li>
+      <li><b>신조어·밈 탐지</b>: 사전에 없는 신규 아이템 명명 포착</li>
+      <li><b>다소스 융합 스코어링</b>: 노이즈·허위 트렌드 필터링</li>
+      <li><b>해외 선행지표</b> 활용한 국내 진입 예측</li></ul></div>
+    <div class="card"><div class="ch">보유/선행 (픽미 공동연구)</div><ul>
+      <li>디저트 트렌드 <b>시계열 분석 기법</b>(베이스라인 v1)</li>
+      <li>카테고리별 검색량 추이·계절성·키워드 랭킹</li>
+      <li>본 과제: 베이스라인 → <b>AI 예측 모델로 고도화</b></li>
+      <li>백테스팅으로 정밀도·리드타임 실측(2-3 참조)</li></ul></div>
+  </div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">10</span></div>
+</div>
+
+<!-- 11. II 2-2 안건2 자연어 추천·랭킹 엔진 -->
+<div class="slide">
+  <div class="head"><div class="h-l">II. 해결방안 및 세부내용 (Solution)</div><div class="h-r">2-2. 연구개발 내용 및 목표</div></div>
+  <div class="hbar bl" style="margin-top:14px;">지능형 엔진 ② · 자연어 추천·랭킹 모델 (안건 2)</div>
+  <div class="tag" style="margin-top:10px;">
+    <div class="t2" style="font-size:17px;">자연어 질의 → 전국(입점+비입점) 디저트 업체 <b>통합 랭킹 추천</b></div>
+  </div>
+  <div class="flow">
+    <div class="step"><span class="n">1</span><br><b>자연어 이해</b><br><span class="small muted">슬롯추출(지역·식이·용도·예산) NER</span></div><div class="arr">›</div>
+    <div class="step"><span class="n">2</span><br><b>후보 탐색</b><br><span class="small muted">하이브리드 검색(키워드+벡터), 하드제약 필터</span></div><div class="arr">›</div>
+    <div class="step"><span class="n">3</span><br><b>랭킹(LTR)</b><br><span class="small muted">적합도 1차 + 품질·평판·지역·트렌드 가산</span></div><div class="arr">›</div>
+    <div class="step"><span class="n">4</span><br><b>근거 표출</b><br><span class="small muted">RAG 근거 생성 + 입점 전환 유도</span></div>
+  </div>
+  <div class="grid g2" style="margin-top:14px;">
+    <div class="card"><div class="ch">R&D 난제 (왜 연구개발인가)</div><ul>
+      <li><b>도메인 NER/슬롯추출</b>: 복합조건 질의 정확 해석</li>
+      <li><b>하이브리드 검색 + Learning-to-Rank</b></li>
+      <li><b>엔티티 병합·신선도</b>: 폐업/품절/중복 업체 탐지</li>
+      <li><b>환각 억제</b>: 추천 근거의 사실성 보장</li></ul></div>
+    <div class="card"><div class="ch">보유/선행 (픽미 공동연구)</div><ul>
+      <li>가게 <b>자체 등급 계산식 도출</b>(평점·리뷰·노출수 기반 v1)</li>
+      <li>베이커리 가게 랭킹 대시보드(지역·평판)</li>
+      <li>본 과제: 등급 산식 → <b>LTR 랭킹 모델로 고도화</b></li>
+      <li>골든셋 기반 nDCG·폐업 오추천율로 검증</li></ul></div>
+  </div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">11</span></div>
+</div>
+
+<!-- 12. II 2-2 데이터 파운데이션 + 최종 산출물 -->
+<div class="slide">
+  <div class="head"><div class="h-l">II. 해결방안 및 세부내용 (Solution)</div><div class="h-r">2-2. 연구개발 내용 및 목표</div></div>
+  <div class="hbar or" style="margin-top:14px;">데이터 파운데이션 (공통 인프라)</div>
+  <table>
+    <tr><th>역할 영역</th><th>기능·내용</th><th>기대 가치</th></tr>
+    <tr><td class="center">통합 허브</td><td>인터넷 공개데이터 + 자사 실거래 + 비입점 카탈로그 단일 저장·벡터화</td><td>두 엔진의 공통 학습·검색 소스 확보</td></tr>
+    <tr><td class="center">품질 보증</td><td>지표화·정규화·신조어 사전·신선도(폐업/품절) 라벨링</td><td>오추천·허위 트렌드 위험↓</td></tr>
+    <tr><td class="center">학습 기반</td><td>추천→채택→성과 피드백 자동 ETL로 주기적 재학습 트리거</td><td>예측·랭킹 정확도↑ (선순환)</td></tr>
+    <tr><td class="center">확장 인터페이스</td><td>API·리포트 형태 외부 제공(국내·해외)</td><td>B2B 데이터·SaaS 매출 창출</td></tr>
+    <tr><td class="center">거버넌스</td><td>공식 API 우선·메타데이터 중심 수집, 개인정보·저작권 리스크 최소화</td><td>합법적 데이터 거버넌스(신뢰)</td></tr>
+  </table>
+  <div class="secbar"><span class="dot"></span><h3>최종 산출물 / 최종 목표</h3></div>
+  <div class="grid g2">
+    <div class="card" style="background:#fff3ef; border-color:#f3c7b6;"><div class="ch" style="color:var(--orange)">트렌드 조기예측 AI (안건 1)</div>
+      <div class="small"><b>개발목적</b> 인터넷+자사 데이터로 성장기 진입 조기 탐지</div>
+      <div class="small" style="margin-top:5px;"><b>기대효과</b> 베이스라인 대비 리드타임 ↑, 입점사 신메뉴 성공률 향상</div></div>
+    <div class="card" style="background:var(--blue-l); border-color:#bcd4ee;"><div class="ch" style="color:var(--blue-d)">자연어 추천·랭킹 AI (안건 2)</div>
+      <div class="small"><b>개발목적</b> 자연어→전국 통합 랭킹, 신선도 검증</div>
+      <div class="small" style="margin-top:5px;"><b>기대효과</b> 추천 적합도(nDCG)↑, 폐업 오추천↓, 입점 전환↑</div></div>
+  </div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">12</span></div>
+</div>
+
+<!-- 13. II 2-2 성능지표 -->
+<div class="slide">
+  <div class="head"><div class="h-l">II. 해결방안 및 세부내용 (Solution)</div><div class="h-r">2-2. 연구개발 내용 및 목표</div></div>
+  <div class="secbar"><span class="dot"></span><h3>결과물의 성능지표</h3></div>
+  <table style="font-size:11px;">
+    <tr><th>평가항목(주요성능)</th><th style="width:75px;">단위</th><th style="width:60px;">비중(%)</th><th>국내·세계 수준(참조)</th><th>목표 설정 근거</th><th style="width:80px;">목표치</th></tr>
+    <tr><td class="center">트렌드 성장기<br>조기탐지 정밀도</td><td class="center">Precision %</td><td class="center">20</td><td>〈유사 트렌드 탐지 벤치마크 확인〉 / 단순 언급량 임계 베이스라인 대비</td><td>다소스 융합 + 시계열 변곡점 탐지</td><td class="center"><b class="bl">≥ 80%</b></td></tr>
+    <tr><td class="center">조기탐지 리드타임</td><td class="center">일(days)</td><td class="center">18</td><td>수기 모니터링·베이스라인 대비 선행</td><td>해외 선행지표 + 자사 판매 결합</td><td class="center"><b class="bl">+30일</b></td></tr>
+    <tr><td class="center">신조어/밈 탐지 F1</td><td class="center">F1</td><td class="center">12</td><td>〈한국어 신조어 NER 벤치마크 확인〉</td><td>도메인 사전 + LLM 보조</td><td class="center"><b class="bl">≥ 0.80</b></td></tr>
+    <tr><td class="center">자연어 추천 품질</td><td class="center">nDCG@10</td><td class="center">20</td><td>〈추천 랭킹 벤치마크 확인〉 / 자체 등급 산식 v1 대비</td><td>하이브리드 검색 + LTR</td><td class="center"><b class="bl">≥ 0.85</b></td></tr>
+    <tr><td class="center">신선도(폐업/품절)<br>하드제약 위반율</td><td class="center">%</td><td class="center">15</td><td>현 검색 결과(폐업 혼재) 대비</td><td>엔티티 신선도 검증 파이프라인</td><td class="center"><b class="bl">&lt; 1%</b></td></tr>
+    <tr><td class="center">추천 근거<br>환각 오류율</td><td class="center">%</td><td class="center">8</td><td>일반 LLM 직답 대비</td><td>RAG 근거 인용 + 검증</td><td class="center"><b class="bl">&lt; 2%</b></td></tr>
+    <tr><td class="center">평균 응답 지연</td><td class="center">ms</td><td class="center">7</td><td>대화형 추천 권고 수준</td><td>캐싱·벡터검색 최적화</td><td class="center"><b class="bl">≤ 800ms</b></td></tr>
+  </table>
+  <div class="note">※ 목표치는 제안 단계 가정이며, <b>콜드스타트 백테스팅</b>(과거 흥망 아이템 데이터)과 <b>골든셋 평가</b>로 1차 실측 후 캘리브레이션한다. "정확도 자체가 R&D 산출물". 국내·세계 수준 벤치마크는 공인 자료로 확인 필요.</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">13</span></div>
+</div>
+
+<!-- 14. II 2-2 평가방법 및 환경 -->
+<div class="slide">
+  <div class="head"><div class="h-l">II. 해결방안 및 세부내용 (Solution)</div><div class="h-r">2-2. 연구개발 내용 및 목표</div></div>
+  <div class="secbar"><span class="dot"></span><h3>평가방법 및 환경 (작성 필수) — 성능지표와 동일</h3></div>
+  <table style="font-size:10.5px;">
+    <tr><th style="width:30px;">순번</th><th style="width:150px;">평가항목</th><th>평가방법(요지)</th><th style="width:200px;">평가환경</th></tr>
+    <tr><td class="center">1</td><td class="center">트렌드 조기탐지 정밀도/리드타임</td><td>흥망이 끝난 과거 아이템(약과·두바이초콜릿·소금빵·탕후루 등) 검증셋에 대해 <b>미래누설 차단 백테스팅</b> → 성장기 진입 사후예측 vs 실제 정점 대조, 단순 언급량 임계 <b>베이스라인 대비 개선율</b> 산출(3회 반복)</td><td>재현 가능 노트북(네이버 데이터랩 과거 데이터) + 〈제3자 시험기관 협의〉</td></tr>
+    <tr><td class="center">2</td><td class="center">자연어 추천 품질 (nDCG@10)</td><td>전문가가 구성한 <b>골든셋 질의-정답 세트</b>에 대해 사람평가 nDCG·만족도 산출, 하드제약(지역·식이·폐업) 위반 여부 동시 점검(학습:검증:테스트 분리)</td><td>KOLAS 표준 환경 지향 / 〈공인 시험기관·평가단 협의〉</td></tr>
+    <tr><td class="center">3</td><td class="center">신조어/밈 탐지 F1</td><td>라벨링된 디저트 신조어 테스트셋으로 자동 채점(precision/recall/F1)</td><td>사내 표준 GPU 환경 + 측정 스크립트(Python)</td></tr>
+    <tr><td class="center">4</td><td class="center">신선도 하드제약 위반율</td><td>폐업/품절이 확인된 샘플을 섞은 테스트셋에서 위반(오추천) 건수 / 전체 추천</td><td>실서비스 카탈로그 스냅샷 기반 검증</td></tr>
+    <tr><td class="center">5</td><td class="center">추천 근거 환각 오류율</td><td>생성 근거 문장의 사실성을 출처 대조 + 임베딩 유사도(≥0.8)로 판정, 무작위 표본 패널 검증</td><td>폐쇄망 표준 서버 + scikit-learn metrics</td></tr>
+    <tr><td class="center">6</td><td class="center">평균 응답 지연</td><td>부하시험(동시요청)으로 p95 latency 측정, 타임스탬프 자동 기록</td><td>〈성능시험 환경·감사 협의〉</td></tr>
+  </table>
+  <div class="note">※ 제3자 공인: 백테스트 데이터셋·코드를 제출/공개용으로 정리하면 객관성 평가에 유리(개발 실현성 항목 대응).</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">14</span></div>
+</div>
+
+<!-- 15. II 2-3 연구개발 현황 -->
+<div class="slide">
+  <div class="head"><div class="h-l">II. 해결방안 및 세부내용 (Solution)</div><div class="h-r">2-3. 연구개발 현황</div></div>
+  <div class="tag">
+    <div class="t1">[ 선행 연구개발 현황 ]</div>
+    <div class="t2">픽미팀과 <b>정식 공동연구</b>로 안건 1·2의 <b>작동 PoC·방법론·코드</b>를 이미 확보</div>
+    <ul>
+      <li>디저트 <b>트렌드 분석 대시보드</b>(검색량 추이·MoM·계절성·키워드 랭킹) + <b>시계열 분석 코드</b> = 안건 1 베이스라인</li>
+      <li>베이커리 <b>가게 랭킹 대시보드</b> + <b>자체 등급 계산식 도출 코드</b> = 안건 2 베이스라인</li>
+      <li>자사 실거래 데이터(매출·전환·재구매·고객 클러스터·키워드 취향) = 검증 라벨·개인화 연료 / 〈공동연구 협약·기간·역할 증빙 정리〉</li>
+    </ul>
+  </div>
+  <div class="grid g3" style="margin-top:14px;">
+    <div class="card"><div class="ch">보유 데이터·자산</div><ul><li>자사 실거래 데이터(딸기로픽)</li><li>픽미 공동연구 분석 자산</li><li>인터넷 공개 데이터 파이프라인</li></ul></div>
+    <div class="card"><div class="ch">TIPS 기간 개발</div><ul><li>시계열 베이스라인 → AI 예측 고도화</li><li>등급 산식 → LTR 랭킹 모델</li><li>RAG 근거생성·신선도 검증</li></ul></div>
+    <div class="card"><div class="ch">TIPS 후속</div><ul><li>엔진 SaaS/API 상품화</li><li>해외 현지화(데이터 소스 교체)</li><li>양면 데이터 해자 강화</li></ul></div>
+  </div>
+  <div class="note">→ "단순 LLM API 통합"이 아님이 <b>선행 코드(시계열·등급 산식)</b>로 입증됨. 백테스팅 KPI 실측 1건이 잔여 핵심(2-2 참조).</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">15</span></div>
+</div>
+
+<!-- 16. II 2-4 표준화 전략 -->
+<div class="slide">
+  <div class="head"><div class="h-l">II. 해결방안 및 세부내용 (Solution)</div><div class="h-r">2-4. 표준화 전략</div></div>
+  <div class="tag">
+    <div class="t1">[ 표준화 ]</div>
+    <div class="t2">데이터 스키마·라벨링·평가 절차를 표준화해 <b>안전·정확·재현 가능한</b> 추천 품질 확보</div>
+  </div>
+  <table>
+    <tr><th style="width:170px;">기술 / 제품</th><th>개발 목표</th><th>개발 전략</th><th>표준 기준 수립</th></tr>
+    <tr><td class="center">데이터 파운데이션</td><td>오류 적고 최신 유지되는 통합 데이터셋·카탈로그</td><td>형식·범위 검사·정정 / 개인정보·저작권 가리기 / 벡터 인덱싱</td><td>필드·허용값 정의, 누락·중복 기준, 변경·접근 이력</td></tr>
+    <tr><td class="center">트렌드 예측 모델</td><td>근거 있는 성장기 조기탐지</td><td>휴리스틱 v1 + 학습모델 / 백테스팅 검증 / 해외 선행지표</td><td>정밀도·리드타임 지표·목표치, 검증셋·시나리오, 근거 표기</td></tr>
+    <tr><td class="center">자연어 추천·랭킹</td><td>적합도+가산 통합 랭킹, 신선도 보장</td><td>슬롯추출·하이브리드 검색·LTR / 폐업·품절 필터 / 입점 부스트 투명화</td><td>슬롯 스키마, 랭킹 가중 규칙, nDCG·위반율 테스트 표준</td></tr>
+    <tr><td class="center">근거생성 LLM(RAG)</td><td>근거 인용·환각 억제</td><td>근거 문서 연결, 불확실 시 생성 중단, 사실성 검증</td><td>인용 표기·최신성 주기, 금지표현(허위·과장) 체크리스트, 버전 관리</td></tr>
+  </table>
+  <div class="note">※ 합법적 데이터 거버넌스(공식 API 우선·메타데이터 중심)는 신뢰 요소로 표준 문서화한다.</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">16</span></div>
+</div>
+
+<!-- 17. II 2-5 업무분장 및 추진일정 -->
+<div class="slide">
+  <div class="head"><div class="h-l">II. 해결방안 및 세부내용 (Solution)</div><div class="h-r">2-5. 업무분장 및 추진일정</div></div>
+  <div class="secbar"><span class="dot"></span><h3>업무 분장</h3></div>
+  <table>
+    <tr><th>수행기관</th><th>담당 기술개발 내용</th><th style="width:120px;">기술개발 비중(%)</th></tr>
+    <tr><td class="center">주관연구개발기관(딸기로컴퍼니)</td><td>데이터 파운데이션·카탈로그 구축, 트렌드 예측·자연어 랭킹 모델·RAG 통합 개발</td><td class="center">100%</td></tr>
+    <tr><td class="center">위탁/외주(해당 시)</td><td class="muted">〈필요 시 외부 전문기술 활용비 계상〉</td><td class="center">-</td></tr>
+  </table>
+  <div class="secbar"><span class="dot"></span><h3>추진 일정 (간트)</h3></div>
+  <table style="font-size:10.5px;">
+    <tr><th style="width:55px;">차수</th><th>세부 추진내용</th><th>1–3월</th><th>4–6월</th><th>7–9월</th><th>10–12월</th></tr>
+    <tr><td class="center">1차년도</td><td>데이터 파운데이션·전국 카탈로그 구축</td><td class="center">●</td><td class="center">●</td><td class="center">●</td><td class="center"></td></tr>
+    <tr><td class="center">1차년도</td><td>트렌드 예측 모델 고도화 + 백테스팅 KPI 실측</td><td class="center"></td><td class="center">●</td><td class="center">●</td><td class="center">●</td></tr>
+    <tr><td class="center">1차년도</td><td>자연어 이해·하이브리드 검색·LTR 랭킹 개발</td><td class="center"></td><td class="center">●</td><td class="center">●</td><td class="center">●</td></tr>
+    <tr><td class="center">2차년도</td><td>RAG 근거생성·신선도 검증 통합, 웹/앱 MVP</td><td class="center">●</td><td class="center">●</td><td class="center">●</td><td class="center">●</td></tr>
+    <tr><td class="center">2차년도</td><td>입점사·소비자 베타 + 성능 튜닝(골든셋 평가)</td><td class="center"></td><td class="center"></td><td class="center">●</td><td class="center">●</td></tr>
+    <tr><td class="center">2차년도</td><td>엔진 API화 / 글로벌(일본) 현지화 PoC 준비</td><td class="center"></td><td class="center"></td><td class="center">●</td><td class="center">●</td></tr>
+  </table>
+  <div class="note">※ TIPS 일반트랙 표준 추진기간에 맞춰 차수·기간 조정 필요(공고 확인).</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">17</span></div>
+</div>
+
+<!-- 18. III 3-1 목표시장 -->
+<div class="slide">
+  <div class="head"><div class="h-l">III. 사업화 전략 (Scale-up)</div><div class="h-r">3-1. 목표시장 및 경쟁사 현황</div></div>
+  <div class="tag">
+    <div class="t1">[ 목표 시장 규모 ]</div>
+    <div class="t2">TAM = 디저트·베이커리 시장, SAM = 온라인 디저트 발견·중개, SOM = 딸기로 거래·추천 흡수분</div>
+    <ul>
+      <li><b>TAM</b> 국내(+글로벌 K-디저트) 디저트·베이커리 전체 시장 〈약 ○조 원〉</li>
+      <li><b>SAM</b> 온라인 디저트 발견·주문·중개 가능 시장 〈약 ○조 원〉</li>
+      <li><b>SOM</b> 딸기로 입점·중개 거래액 + 추천 전환 흡수분 〈약 ○천억 원〉 *가정·산정근거 3-7</li>
+    </ul>
+  </div>
+  <div class="grid g3" style="margin-top:16px;">
+    <div class="kpi" style="background:#eef4fb;"><div class="num">TAM</div><div class="lab">디저트·베이커리 전체<br>〈○조 원〉</div></div>
+    <div class="kpi" style="background:#dde9f7;"><div class="num">SAM</div><div class="lab">온라인 발견·중개<br>〈○조 원〉</div></div>
+    <div class="kpi" style="background:#c9ddf2;"><div class="num">SOM</div><div class="lab">딸기로 흡수분<br>〈○천억 원〉</div></div>
+  </div>
+  <div class="disc">※ 시장 규모는 공식 통계(통계청·식품산업통계·업계 리포트)로 확정해야 하며, 현재는 산정 골격만 제시. SOM은 입점사 수·평균 거래액·전환율 가정에 연동(3-7).</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">18</span></div>
+</div>
+
+<!-- 19. III 3-1 경쟁사 -->
+<div class="slide">
+  <div class="head"><div class="h-l">III. 사업화 전략 (Scale-up)</div><div class="h-r">3-1. 목표시장 및 경쟁사 현황</div></div>
+  <div class="tag">
+    <div class="t1">[ 경쟁사 현황 ]</div>
+    <div class="t2">딸기로, <b>트렌드 조기예측 + 전국 통합 자연어 추천 + 데이터 해자</b> 결합으로 차별화</div>
+    <ul>
+      <li>포털/지도/배달앱은 일반 검색·광고 중심으로 <b>디저트 트렌드 예측·신선도 검증이 약함</b></li>
+      <li>큐레이션 미디어·SNS는 사후·수기 중심으로 <b>조기성·전국 커버리지·B2B 대응 한계</b></li>
+    </ul>
+  </div>
+  <table style="font-size:11px;">
+    <tr><th>유형</th><th>대표 형태</th><th>트렌드 예측</th><th>자연어 통합추천</th><th>전국 비입점</th><th>신선도 검증</th><th>당사 대비 한계</th></tr>
+    <tr><td class="center">포털·지도</td><td class="center">키워드 검색·플레이스</td><td class="center">약</td><td class="center">약</td><td class="center">부분</td><td class="center">약</td><td>광고·낡은 정보 혼재</td></tr>
+    <tr><td class="center">배달·커머스앱</td><td class="center">주문 중심</td><td class="center">약</td><td class="center">약</td><td class="center">입점 한정</td><td class="center">중</td><td>발견·예측 기능 부재</td></tr>
+    <tr><td class="center">SNS·큐레이션</td><td class="center">콘텐츠·해시태그</td><td class="center">사후</td><td class="center">없음</td><td class="center">없음</td><td class="center">없음</td><td>수기·사후, B2B 미지원</td></tr>
+    <tr style="background:#eef4fb;"><td class="center"><b class="bl">딸기로</b></td><td class="center"><b>트렌드 예측 + 자연어 통합추천</b></td><td class="center"><b class="bl">강</b></td><td class="center"><b class="bl">강</b></td><td class="center"><b class="bl">통합</b></td><td class="center"><b class="bl">강</b></td><td>데이터 해자 + 조기성 + 전국 커버리지</td></tr>
+  </table>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">19</span></div>
+</div>
+
+<!-- 20. III 3-2 사업화 계획 -->
+<div class="slide">
+  <div class="head"><div class="h-l">III. 사업화 전략 (Scale-up)</div><div class="h-r">3-2. 사업화 계획</div></div>
+  <div class="tag">
+    <div class="t1">[ 비즈니스 모델 ]</div>
+    <div class="t2">추천으로 입점사 성공·거래를 키우고, 이를 <b>중개·광고·구독·SaaS/데이터</b> 매출로 전환</div>
+    <ul>
+      <li>안건 1·2로 입점사 성공률·소비자 전환을 높여 <b>거래액(중개수수료)·광고·구독</b> 매출 확대</li>
+      <li>비입점 추천(신뢰 우선) → <b>입점 전환 깔때기</b> + 데이터 해자 강화</li>
+      <li>확보한 엔진·데이터를 <b>B2B SaaS/API·데이터 인텔리전스</b>로 국내외 수출 (3-3)</li>
+    </ul>
+  </div>
+  <div class="secbar"><span class="dot"></span><h3>수익원</h3></div>
+  <div class="grid g3">
+    <div class="card"><div class="ch">① 거래·중개</div><ul><li>입점사 주문 전환(거래액)</li><li>비입점 중개·예약·리퍼럴</li><li>중개수수료 모델</li></ul></div>
+    <div class="card"><div class="ch">② 광고·구독</div><ul><li>입점사 트렌드 인텔리전스 구독</li><li>투명 부스트(노출) 광고</li><li>프리미엄 추천 리포트</li></ul></div>
+    <div class="card"><div class="ch">③ SaaS·데이터(확장)</div><ul><li>엔진 B2B SaaS/API</li><li>트렌드 데이터 인텔리전스 판매</li><li>해외 라이선스(3-3)</li></ul></div>
+  </div>
+  <div class="note">※ 중개율·광고단가·구독가 등 단가 가정은 3-7 및 비용가이드(docs/05)와 연동해 산정.</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">20</span></div>
+</div>
+
+<!-- 21. III 3-3 글로벌 진출전략 -->
+<div class="slide">
+  <div class="head"><div class="h-l">III. 사업화 전략 (Scale-up)</div><div class="h-r">3-3. 글로벌 진출전략</div></div>
+  <div class="tag">
+    <div class="t1">[ 글로벌 진출전략 ]</div>
+    <div class="t2">핵심 논리 = <b>R&D 자산(엔진) = 수출 자산</b> (데이터 소스 교체 + 재학습으로 진출, 물류 장벽 없음)</div>
+    <ul>
+      <li>알고리즘은 언어·지역 비종속 → 신규국 진입 = 현지 데이터 소스 교체(Google Trends·현지 SNS) + 재학습</li>
+      <li>3단계: <b>① 데이터 인텔리전스 수출 → ② 엔진 현지화 SaaS → ③ 플랫폼 동반진출</b>(K-디저트 브랜드 해외진출 지원)</li>
+      <li>진입 우선순위: <b>① 일본 → ② 동남아(싱가포르·베트남·인니) → ③ 미국</b></li>
+    </ul>
+  </div>
+  <div class="grid g3" style="margin-top:12px;">
+    <div class="card" style="border-color:#bcd4ee;"><div class="pill">① 일본</div><ul style="margin-top:7px;"><li>거대·고단가 디저트 시장, K-디저트 인기 최상</li><li>지리·시차 인접, 트렌드 동조성↑(한국발 신호 적중률↑)</li></ul></div>
+    <div class="card"><div class="pill">② 동남아</div><ul style="margin-top:7px;"><li>K-컬처 친화, 배달·카페 시장 급성장</li><li>경쟁 저밀도, 영어·데이터 접근 용이</li></ul></div>
+    <div class="card"><div class="pill">③ 미국</div><ul style="margin-top:7px;"><li>시장 최대·객단가 높음</li><li>경쟁·현지화 난도 최상 → 검증 후 진입</li></ul></div>
+  </div>
+  <div class="secbar"><span class="dot"></span><h3>글로벌 KPI (보수적 가정)</h3></div>
+  <table>
+    <tr><th>시점</th><th>목표</th></tr>
+    <tr><td class="center">1년 차</td><td>일본 데이터 인텔리전스 리포트/API 파일럿 유료 고객 <b>2~3곳</b></td></tr>
+    <tr><td class="center">2년 차</td><td>일본 SaaS 라이선스 + 동남아 파일럿 진입, 누적 해외 유료 고객 <b>5곳 내외</b></td></tr>
+    <tr><td class="center">3년 차</td><td>해외(SaaS·데이터) 매출 비중 <b>10~15%</b>, 누적 해외 유료 고객 <b>8곳 내외</b></td></tr>
+  </table>
+  <div class="note">※ 보수 가정 — 트랙션 확보 시 상향 캘리브레이션. 파트너: 운영사 네트워크·KOTRA·현지 액셀러레이터.</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">21</span></div>
+</div>
+
+<!-- 22. III 3-4 운영사 지원계획 -->
+<div class="slide">
+  <div class="head"><div class="h-l">III. 사업화 전략 (Scale-up)</div><div class="h-r">3-4. 운영사 지원계획</div></div>
+  <div class="tag">
+    <div class="t1">[ 운영사 지원계획 ]</div>
+    <div class="t2">TIPS 운영사(액셀러레이터)와 <b>투자·보육·판로·멘토링</b> 공동 추진 〈운영사 추천서와 정합화〉</div>
+  </div>
+  <div class="grid g2" style="margin-top:14px;">
+    <div class="card"><div class="ch">후속 투자 지원</div><ul><li>운영사 펀드/네트워크 활용 후속 투자 검토</li><li>TIPS 매칭·후속 R&D 연계</li></ul></div>
+    <div class="card"><div class="ch">홍보·마케팅</div><ul><li>운영사 채널·포트폴리오사 연계 홍보</li><li>입점사 모집·B2B 레퍼런스 확보 지원</li></ul></div>
+    <div class="card"><div class="ch">글로벌 진출 지원</div><ul><li>해외 네트워크·파트너 매칭(일본 우선)</li><li>현지 진입·라이선스 협의 지원</li></ul></div>
+    <div class="card"><div class="ch">멘토링·보육</div><ul><li>정기 미팅(월 1~2회) 과제 운영 지원</li><li>기술·사업화·IR 멘토링</li></ul></div>
+  </div>
+  <div class="note">※ 운영사명·투자조건·구체 보육계획은 운영사 추천서/투자계약에 맞춰 확정.</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">22</span></div>
+</div>
+
+<!-- 23. III 3-5 고용창출 및 기대효과 -->
+<div class="slide">
+  <div class="head"><div class="h-l">III. 사업화 전략 (Scale-up)</div><div class="h-r">3-5. 고용창출 및 기대효과</div></div>
+  <div class="tag">
+    <div class="t1">[ 고용 창출 및 기대효과 ]</div>
+    <div class="t2">AI·데이터·사업개발 신규 채용으로 인력 기반 강화, 입점사·소비자·플랫폼 동반성장</div>
+  </div>
+  <div class="secbar"><span class="dot"></span><h3>고용 계획 (가정)</h3></div>
+  <table>
+    <tr><th>구분</th><th>1차년도</th><th>2차년도</th><th>3차년도(종료 후 1년)</th><th>종료 후 2년</th></tr>
+    <tr><td class="center">신규 고용(명)</td><td class="center">〈2〉</td><td class="center">〈4〉</td><td class="center">〈8〉</td><td class="center">〈12〉</td></tr>
+    <tr><td class="center">상시 고용(명)</td><td class="center">〈○〉</td><td class="center">〈○〉</td><td class="center">〈○〉</td><td class="center">〈○〉</td></tr>
+  </table>
+  <div class="note">※ 가점 '일자리 창출(내일채움공제)'과 연계. 인원·시점은 실제 채용계획으로 확정.</div>
+  <div class="grid g2" style="margin-top:12px;">
+    <div class="card"><div class="ch">기술적 기대효과</div><ul><li>트렌드 조기탐지 정밀도·리드타임 향상</li><li>자연어 추천 nDCG↑, 폐업 오추천↓</li><li>재현 가능한 검증 체계(백테스팅·골든셋)</li></ul></div>
+    <div class="card"><div class="ch">사업·사회적 기대효과</div><ul><li>소상공인 디저트 업체 정보 비대칭 해소</li><li>입점사 성공률·거래액↑, 소비자 탐색비용↓</li><li>K-디저트 데이터·엔진 수출(글로벌)</li></ul></div>
+  </div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">23</span></div>
+</div>
+
+<!-- 24. III 3-6 사업화 목표 -->
+<div class="slide">
+  <div class="head"><div class="h-l">III. 사업화 전략 (Scale-up)</div><div class="h-r">3-6. 사업화 목표</div></div>
+  <div class="tag">
+    <div class="t1">[ 수익 구조 ]</div>
+    <div class="t2">거래·중개 + 광고·구독에 <b>SaaS/데이터·해외 라이선스</b>를 결합해 다각화된 수익 모델 구축</div>
+  </div>
+  <div class="secbar"><span class="dot"></span><h3>사업화 성과 및 예상 총매출액 (가정)</h3></div>
+  <table style="font-size:11px;">
+    <tr><th>사업화 성과</th><th>세부 지표</th><th>1차년</th><th>2차년</th><th>종료후1년</th><th>종료후2년</th><th>종료후3년</th></tr>
+    <tr><td class="center">기업 전체 성장</td><td>예상 총매출액(A)</td><td class="center">〈○〉</td><td class="center">〈○〉</td><td class="center">〈○〉</td><td class="center">〈○〉</td><td class="center">〈○〉</td></tr>
+    <tr><td class="center" rowspan="2">개발기술 사업화</td><td>R&D 결과물 매출액(B)</td><td class="center">〈○〉</td><td class="center">〈○〉</td><td class="center">〈○〉</td><td class="center">〈○〉</td><td class="center">〈○〉</td></tr>
+    <tr><td>점유비율(C=B/A)</td><td class="center">〈%〉</td><td class="center">〈%〉</td><td class="center">〈%〉</td><td class="center">〈%〉</td><td class="center">〈%〉</td></tr>
+  </table>
+  <div class="disc">※ 매출 목표는 입점사 수·거래액·중개율·구독/SaaS 단가 가정에 연동(3-7). 글로벌 매출 비중은 3-3 KPI(3년 차 10~15%)와 정합. 수치는 사업계획 확정 시 확정.</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">24</span></div>
+</div>
+
+<!-- 25. III 3-7 산정 근거 -->
+<div class="slide">
+  <div class="head"><div class="h-l">III. 사업화 전략 (Scale-up)</div><div class="h-r">3-7. 사업화 목표 산정 근거</div></div>
+  <div class="secbar"><span class="dot"></span><h3>매출 산정 근거 (수익원별)</h3></div>
+  <table style="font-size:11px;">
+    <tr><th>수익원</th><th>단가/가정</th><th>볼륨 가정</th><th>산정 로직</th></tr>
+    <tr><td class="center">거래·중개수수료</td><td>중개율 〈○%〉</td><td>입점사 N곳 × 평균 거래액</td><td>매출 = 거래액 × 중개율</td></tr>
+    <tr><td class="center">광고·구독(입점사)</td><td>월 〈○원〉</td><td>구독 입점사 수</td><td>매출 = 구독사 × 단가 × 개월</td></tr>
+    <tr><td class="center">B2B SaaS/API</td><td>연 〈○원〉</td><td>도입사 수(국내)</td><td>매출 = 누적 도입사 × 연 사용료</td></tr>
+    <tr><td class="center">해외 데이터·라이선스</td><td>구축 〈○〉+연 〈○〉</td><td>일본→동남아→미국 단계 확장</td><td>매출 = 신규 구축 + 누적 라이선스 × 연 사용료</td></tr>
+  </table>
+  <div class="secbar"><span class="dot"></span><h3>개발기술의 사업화 성과 (핵심 가정·KPI)</h3></div>
+  <table style="font-size:11px;">
+    <tr><th>사업 영역</th><th>목표/기여</th><th>핵심 가정</th><th>주요 KPI</th></tr>
+    <tr><td class="center">거래·중개</td><td>초기 매출 주력</td><td>추천으로 입점사 성공률·전환↑</td><td>추천 채택률, 거래액 증가율</td></tr>
+    <tr><td class="center">SaaS/데이터</td><td>중기 확장</td><td>엔진·데이터 인텔리전스 외부 공급</td><td>도입사 수, 갱신율</td></tr>
+    <tr><td class="center">해외</td><td>3년 차 매출비중 10~15%</td><td>데이터 소스 교체 + 재학습으로 진출</td><td>해외 유료 고객 수, 라이선스 ARPA</td></tr>
+  </table>
+  <div class="disc">※ 모든 단가·볼륨은 〈가정〉. 입점사 수·거래 데이터(딸기로픽 실적)와 비용가이드(docs/05)로 캘리브레이션 필요.</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">25</span></div>
+</div>
+
+<!-- 26. IV 창업기업 소개 -->
+<div class="slide">
+  <div class="head"><div class="h-l">IV. 창업기업 소개</div><div class="h-r">4-1. 기업 소개</div></div>
+  <div class="tag">
+    <div class="t1">[ 딸기로컴퍼니 소개 ]</div>
+    <div class="t2">프리미엄 디저트 배송·중개 플랫폼 + 디저트 트렌드/추천 AI 헬스 ··· <b>"곧 뜰 디저트를 먼저 아는 플랫폼"</b></div>
+  </div>
+  <table style="margin-top:14px;">
+    <tr><th style="width:130px;">설립일</th><td>〈YYYY-MM-DD〉</td></tr>
+    <tr><th>주소(본사)</th><td>서울특별시 동작구 노량진로 10 (대방동)</td></tr>
+    <tr><th>서비스</th><td>딸기로(ddalgiro.com) 디저트 배송·중개 / 딸기로픽(동일 법인)</td></tr>
+    <tr><th>투자유치</th><td>〈투자유치 내역〉</td></tr>
+    <tr><th>회사 비전</th><td>"트렌드·데이터 기반 디저트 추천으로 입점사와 소비자를 함께 성장시킨다."</td></tr>
+    <tr><th>주요 연혁/계획</th><td>〈연혁: 설립·서비스 출시·픽미 공동연구·TIPS 운영사 확보·특허 등 기입〉</td></tr>
+  </table>
+  <div class="note">※ 빈칸은 실제 등기·IR 자료로 채워야 함. 본사 비수도권 가점은 불가(서울)이므로 가점은 취득형 항목으로 설계(별도 가점 전략 참조).</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">26</span></div>
+</div>
+
+<!-- 27. IV 팀 소개 -->
+<div class="slide">
+  <div class="head"><div class="h-l">IV. 창업기업 소개</div><div class="h-r">4-2. 팀 소개</div></div>
+  <div class="tag">
+    <div class="t1">[ 팀 소개 ]</div>
+    <div class="t2">디저트 도메인 + 데이터/AI 역량을 갖춘 핵심 인력 (대표 = 연구책임자)</div>
+  </div>
+  <div class="grid g4" style="margin-top:14px;">
+    <div class="card"><div class="ch">대표 / 연구책임자</div><div class="small muted">〈이름·역할·경력〉<br>R&D 총괄(IRIS 등록)</div></div>
+    <div class="card"><div class="ch">CTO / AI</div><div class="small muted">〈이름·경력〉<br>트렌드 예측·랭킹·MLOps</div></div>
+    <div class="card"><div class="ch">데이터</div><div class="small muted">〈이름·경력〉<br>수집·파이프라인·카탈로그</div></div>
+    <div class="card"><div class="ch">사업/운영</div><div class="small muted">〈이름·경력〉<br>입점사·B2B·글로벌</div></div>
+  </div>
+  <div class="secbar"><span class="dot"></span><h3>R&D 수행역량 (심사 핵심)</h3></div>
+  <table style="font-size:11px;">
+    <tr><th>본 과제 R&D 난제</th><th>보유 역량/실적(증빙)</th><th style="width:90px;">담당</th></tr>
+    <tr><td>트렌드 시계열 조기예측</td><td><b>픽미 공동연구</b> 시계열 분석 기법·코드(베이스라인) + 자사 판매데이터</td><td class="center">〈CTO〉</td></tr>
+    <tr><td>하이브리드 검색 + LTR 랭킹</td><td><b>픽미 공동연구</b> 가게 자체 등급 계산식(v1) + 〈검색·추천 경험〉</td><td class="center">〈AI〉</td></tr>
+    <tr><td>도메인 NER/신조어 탐지</td><td>키워드·취향 분석 자산 + 〈NLP 경험〉</td><td class="center">〈AI〉</td></tr>
+    <tr><td>데이터 파이프라인·MLOps</td><td>딸기로픽 운영 데이터 ETL 경험</td><td class="center">〈데이터〉</td></tr>
+  </table>
+  <div class="note">※ 선행 R&D 이력 증빙: <a>픽미 공동연구 산출물(노션)</a> · 대시보드 · 최종 발표자료. 〈협약 문서·기간·역할 명시〉.</div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">27</span></div>
+</div>
+
+<!-- 28. V 안전 및 보안조치 -->
+<div class="slide">
+  <div class="head"><div class="h-l">V. 연구개발 안전 및 보안조치 이행계획</div><div class="h-r"></div></div>
+  <div class="grid g2" style="margin-top:16px;">
+    <div class="card"><div class="ch">1. 안전조치 이행계획</div><ul>
+      <li>안전책임자 지정(산업안전보건법) 및 분기별 안전교육 실시</li>
+      <li>안전사고 발생 시 즉시 보고·조치, 안전점검 지침 준수</li>
+      <li>연구활동종사자 대상 보험 가입</li>
+      <li>필요 시 정밀안전진단 실시</li></ul></div>
+    <div class="card"><div class="ch">2. 보안조치 이행계획</div><ul>
+      <li>참여 인력 보안교육 의무화</li>
+      <li>내부 데이터·소스코드 허가 IP에서만 접속</li>
+      <li>DB 접근은 SSH key 보유 인력으로 제한</li>
+      <li>문서 보안등급 표기·차등 접근권한, 외부 SW 사전승인</li>
+      <li>전산망 보호 H/W·S/W 도입</li></ul></div>
+    <div class="card"><div class="ch">3. 기술유출 방지대책</div><ul>
+      <li>유관 인력 비밀유지계약(NDA) 체결 의무화</li>
+      <li>연구 중 개인 보조기억장치 사용 금지</li>
+      <li>물리 자료 불용 시 물리적 폐기·관리대장 기록</li>
+      <li>개발 핵심기술은 특허로 확보해 유출·침해 방지</li></ul></div>
+    <div class="card"><div class="ch">4. 그 밖의 조치사항 / 데이터 거버넌스</div><ul>
+      <li>인터넷 데이터는 <b>공식 API 우선·메타데이터 중심</b> 수집(저작권·개인정보 리스크 최소화)</li>
+      <li>개인정보 비식별·접근통제, 관련 법령 준수</li>
+      <li>이외 사항은 관련 법령에 의거 해결</li></ul></div>
+  </div>
+  <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">28</span></div>
+</div>
+
+</body>
+</html>
