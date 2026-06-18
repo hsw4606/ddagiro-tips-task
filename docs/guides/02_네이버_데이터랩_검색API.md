@@ -45,7 +45,7 @@ def search(kind: str, query: str, display: int = 100, sort: str = "date") -> lis
     r = requests.get(url, headers=HEADERS, params=params, timeout=10)
     r.raise_for_status()           # 4xx/5xx면 예외
     items = r.json()["items"]
-    # 원문 전체는 보관하지 않고, 분석에 필요한 메타만 추림 (docs/03 §0 원칙)
+    # 원문 전체는 보관하지 않고, 분석에 필요한 메타만 추림 (docs/04 §0 원칙)
     return [
         {
             "title": _strip_tags(it["title"]),
@@ -117,7 +117,7 @@ if __name__ == "__main__":
 - **401 Unauthorized**: 헤더 키 이름/값 오타, 또는 앱에 해당 API 미등록. 콘솔에서 "사용 API"에 검색·데이터랩이 추가됐는지 확인.
 - **429 Too Many Requests**: 일일 한도 초과 → 호출 간 `time.sleep`, 키워드 수/주기 조정.
 - **검색 API는 최신순(sort=date)** 으로 받아 "신규 유입분"만 집계해야 중복이 줄어든다.
-- **준법**: 본문 전재 금지, 메타·집계만 보관(`docs/03` §5). 과도한 호출 금지.
+- **준법**: 본문 전재 금지, 메타·집계만 보관(`docs/04` §5). 과도한 호출 금지.
 
 ## 다음 단계
 → [03_구글트렌드_pytrends.md](03_구글트렌드_pytrends.md) 또는 바로 [06 저장](06_데이터저장_postgres_pgvector.md).

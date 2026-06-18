@@ -81,7 +81,7 @@ python -m src.collectors.youtube
 - **403 quotaExceeded**: 일일 쿼터 초과 → search 횟수 줄이고 videos.list 위주로. 다음 날 리셋(태평양 시간 자정).
 - **403 accessNotConfigured**: API가 프로젝트에 사용 설정 안 됨 → §1-3 다시.
 - **keyInvalid**: 키 오타/제한 설정 충돌.
-- 댓글 텍스트 수집 시 개인정보·약관 유의(`docs/03` §5).
+- 댓글 텍스트 수집 시 개인정보·약관 유의(`docs/04` §5).
 
 ## 다음 단계
 → [05_웹크롤링_기초와_준법.md](05_웹크롤링_기초와_준법.md) 또는 [06 저장](06_데이터저장_postgres_pgvector.md).
