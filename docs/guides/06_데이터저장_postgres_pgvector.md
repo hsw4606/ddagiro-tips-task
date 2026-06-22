@@ -4,8 +4,10 @@
 > 선행: [01_개발환경_세팅.md](01_개발환경_세팅.md)
 
 ## 1. Docker로 Postgres + pgvector 띄우기 (가장 쉬움)
-1. Docker Desktop 설치: https://www.docker.com/products/docker-desktop
+
+1. Docker Desktop 설치: <https://www.docker.com/products/docker-desktop>
 2. pgvector 내장 이미지로 컨테이너 실행:
+
 ```bash
 docker run -d --name trend-db \
   -e POSTGRES_USER=trend \
@@ -14,17 +16,22 @@ docker run -d --name trend-db \
   -p 5432:5432 \
   pgvector/pgvector:pg16
 ```
-3. `.env` 확인: `DATABASE_URL=postgresql://trend:trend@localhost:5432/trend`
+
+1. `.env` 확인: `DATABASE_URL=postgresql://trend:trend@localhost:5432/trend`
+
 > 클라우드 대안: AWS RDS/Supabase/Neon 등 관리형 Postgres(대부분 pgvector 지원). 운영 단계에서 전환.
 
 ## 2. 파이썬 클라이언트 설치
+
 ```bash
 pip install "psycopg[binary]"        # psycopg3
 pip freeze > requirements.txt
 ```
 
 ## 3. 스키마 설계 (시계열 지표 중심)
+
 `src/storage/schema.sql`:
+
 ```sql
 -- 확장: pgvector
 CREATE EXTENSION IF NOT EXISTS vector;
@@ -61,13 +68,17 @@ CREATE TABLE IF NOT EXISTS documents (
 );
 CREATE INDEX IF NOT EXISTS idx_metrics_date ON daily_metrics(metric_date);
 ```
+
 적용:
+
 ```bash
 docker exec -i trend-db psql -U trend -d trend < src/storage/schema.sql
 ```
 
 ## 4. 파이썬에서 적재/조회
+
 `src/storage/db.py`:
+
 ```python
 import psycopg
 import config
@@ -105,6 +116,7 @@ if __name__ == "__main__":
 ```
 
 ## 5. 시계열 조회 예 (스코어링 입력)
+
 ```sql
 -- 최근 30일 언급량 추이
 SELECT metric_date, mention_count
@@ -114,23 +126,29 @@ ORDER BY metric_date DESC LIMIT 30;
 ```
 
 ## 6. 임베딩(의미검색)은 어떻게 채우나
+
 - **Anthropic은 임베딩 API를 제공하지 않는다.** 두 가지 선택:
   - **오픈소스(무료·로컬)**: `sentence-transformers`의 다국어 모델(예: `paraphrase-multilingual-MiniLM-L12-v2`, 384차원) → 비용 0, MVP 적합. (스키마 `vector(384)`로 맞출 것)
   - **Voyage AI**(Anthropic 권장 파트너) 등 임베딩 API: 품질↑, 사용량 과금.
+
 ```bash
 pip install sentence-transformers
 ```
+
 ```python
 from sentence_transformers import SentenceTransformer
 model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")  # 384차원
 vec = model.encode("두바이초콜릿 후기").tolist()   # documents.embedding 에 저장
 ```
+
 > 임베딩은 "비슷한 글 묶기/유사 트렌드 검색"에 쓰며, MVP에선 후순위. 트렌드 스코어링은 임베딩 없이도 가능(09).
 
 ## 7. 트러블슈팅
+
 - **연결 거부**: 컨테이너 실행 여부 `docker ps`, 포트 5432 충돌 확인.
 - **extension "vector" 없음**: pgvector 이미지(`pgvector/pgvector`)인지 확인 후 `CREATE EXTENSION vector;`.
 - **차원 불일치**: 임베딩 모델 차원과 `vector(N)`이 일치해야 함.
 
 ## 다음 단계
+
 → [07_LLM_Claude_분류감성인사이트.md](07_LLM_Claude_분류감성인사이트.md)
