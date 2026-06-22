@@ -84,7 +84,7 @@ python -m src.collectors.naver_search
 - 엔드포인트: `POST https://openapi.naver.com/v1/datalab/search`
 - 헤더: 위 두 개 + `Content-Type: application/json`
 - 본문(JSON): `startDate`, `endDate`(yyyy-mm-dd), `timeUnit`(`date`/`week`/`month`), `keywordGroups`(최대 5그룹)
-- **반환값은 절대 검색수가 아니라 기간 내 최댓값=100 기준의 상대 비율**(0~100). → 증가율·모멘텀 계산엔 충분.
+- **반환값은 절대 검색수가 아니라 기간 내 최댓값=100 기준의 상대 비율**(0～100). → 증가율·모멘텀 계산엔 충분.
 
 `src/collectors/naver_datalab.py`:
 
