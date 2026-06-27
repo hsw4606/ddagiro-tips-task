@@ -336,7 +336,7 @@
       <div class="grid g3" style="margin-top:8px; gap:8px;">
         <div class="card center"><b>d</b><br><span class="small">트렌드 조기예측</span><div class="tiny muted">안건 1 핵심</div></div>
         <div class="card center"><b>e</b><br><span class="small">자연어+랭킹(LTR)</span><div class="tiny muted">안건 2 핵심</div></div>
-        <div class="card center"><b>f</b><br><span class="small">근거생성 LLM(RAG)</span><div class="tiny muted">환각 억제</div></div>
+        <div class="card center"><b>f</b><br><span class="small">근거생성 LLM(RAG)</span><div class="tiny muted">환각 억제 · LangGraph 오케스트레이션</div></div>
       </div></div>
   </div>
   <div class="secbar"><span class="dot"></span><h3>개발 기술 개요</h3></div>
@@ -346,7 +346,9 @@
     <tr><td>수기·사후 트렌드 파악으로 조기 포착 실패</td><td>트렌드 조기예측 모델</td><td class="center"><b class="bl">d</b></td><td>성장기 진입 조기 탐지·리드타임 제공(정밀도↑)</td></tr>
     <tr><td>파편화된 검색으로 자연어 통합 추천 불가</td><td>자연어 이해+랭킹(LTR)</td><td class="center"><b class="bl">e</b></td><td>적합도+가산 통합 랭킹, 신뢰 가능한 추천</td></tr>
     <tr><td>추천 근거 부재·환각 위험</td><td>근거생성 LLM(RAG)</td><td class="center"><b class="bl">f</b></td><td>근거 인용·환각 억제로 신뢰도 확보</td></tr>
+    <tr><td>"단순 LLM API 통합" 인상·재현/검증 곤란</td><td>LangChain·LangGraph 오케스트레이션</td><td class="center"><b class="bl">a~f</b></td><td>되묻기·근거결박·재검색 루프의 <b>검증 가능한 추론 파이프라인</b>화(부품 교체 용이)</td></tr>
   </table>
+  <div class="note">오케스트레이션 골격(LangChain·LangGraph·RAG)은 오픈소스로 라이선스비 0(추가비=LLM 토큰). 수치·랭킹 계산은 코드, 생성만 LLM으로 책임 분리해 환각 통제.</div>
   <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">9</span></div>
 </div>
 
@@ -393,10 +395,10 @@
   </div>
   <div class="grid g2" style="margin-top:14px;">
     <div class="card"><div class="ch">R&D 난제 (왜 연구개발인가)</div><ul>
-      <li><b>도메인 NER/슬롯추출</b>: 복합조건 질의 정확 해석</li>
-      <li><b>하이브리드 검색 + Learning-to-Rank</b></li>
+      <li><b>도메인 NER/슬롯추출</b>: 복합조건 해석 + 능동 되묻기(LangGraph 루프)</li>
+      <li><b>하이브리드 검색(RAG) + Learning-to-Rank</b></li>
       <li><b>엔티티 병합·신선도</b>: 폐업/품절/중복 업체 탐지</li>
-      <li><b>환각 억제</b>: 추천 근거의 사실성 보장</li></ul></div>
+      <li><b>환각 억제</b>: RAG 근거결박으로 추천 근거 사실성 보장</li></ul></div>
     <div class="card"><div class="ch">보유/선행 (픽미 공동연구)</div><ul>
       <li>가게 <b>자체 등급 계산식 도출</b>(평점·리뷰·노출수 기반 v1)</li>
       <li>베이커리 가게 랭킹 대시보드(지역·평판)</li>
@@ -500,7 +502,7 @@
     <tr><td class="center">데이터 파운데이션</td><td>오류 적고 최신 유지되는 통합 데이터셋·카탈로그</td><td>형식·범위 검사·정정 / 개인정보·저작권 가리기 / 벡터 인덱싱</td><td>필드·허용값 정의, 누락·중복 기준, 변경·접근 이력</td></tr>
     <tr><td class="center">트렌드 예측 모델</td><td>근거 있는 성장기 조기탐지</td><td>휴리스틱 v1 + 학습모델 / 백테스팅 검증 / 해외 선행지표</td><td>정밀도·리드타임 지표·목표치, 검증셋·시나리오, 근거 표기</td></tr>
     <tr><td class="center">자연어 추천·랭킹</td><td>적합도+가산 통합 랭킹, 신선도 보장</td><td>슬롯추출·하이브리드 검색·LTR / 폐업·품절 필터 / 입점 부스트 투명화</td><td>슬롯 스키마, 랭킹 가중 규칙, nDCG·위반율 테스트 표준</td></tr>
-    <tr><td class="center">근거생성 LLM(RAG)</td><td>근거 인용·환각 억제</td><td>근거 문서 연결, 불확실 시 생성 중단, 사실성 검증</td><td>인용 표기·최신성 주기, 금지표현(허위·과장) 체크리스트, 버전 관리</td></tr>
+    <tr><td class="center">근거생성·오케스트레이션<br>(LangChain·LangGraph·RAG)</td><td>근거 인용·환각 억제, 검증 가능한 추론 그래프</td><td>근거 문서 연결, 불확실 시 생성 중단, 사실성 검증 / 되묻기·재검색 노드</td><td>인용 표기·최신성 주기, 금지표현(허위·과장) 체크리스트, 그래프 노드·버전 관리</td></tr>
   </table>
   <div class="note">※ 합법적 데이터 거버넌스(공식 API 우선·메타데이터 중심)는 신뢰 요소로 표준 문서화한다.</div>
   <div class="foot"><span class="tips">TECH INCUBATOR PROGRAM FOR STARTUP</span><span class="pg">16</span></div>
